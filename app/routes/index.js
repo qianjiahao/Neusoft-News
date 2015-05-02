@@ -40,21 +40,33 @@ module.exports = function(app){
 
 		var url = req.query.url;
 
-		fetchDetail(url)
-			.then(function(data){
+		superagent.get(url)
+			.end(function(err,result){
+				if(err) return err;
+
+				var $ = cheerio.load(result.text);
+				var $ele = $('.article-content');
+
+				var title = $ele.find('h2').text();
+				var publishDate = $ele.find('.entry-date').text() || '暂无';
+				var author = $ele.find('.author').text() || '暂无';
+				var editor = $ele.find('.editor').text() || '暂无';
+				var source = $ele.find('.source a').text() || '暂无';
+				var data = $ele.find('.data').text() || '暂无';
+
 				console.log(data);
 
 				res.render('detail',{
-					title:data.title,
-					publishDate:data.publishDate,
-					author:data.author,
-					editor:data.editor,
-					source:data.source,
-					data:data.data
-				})
-			});
+					title:title,
+					publishDate:publishDate,
+					author:author,
+					editor:editor,
+					source:source,
+					data:data
+				});
 
-	})
+			});
+	});
 
 	app.get('/news',function(req,res){
 
@@ -215,7 +227,6 @@ function fetchDetail(url){
 						source:source,
 						data:data
 					});
-					console.log(result);
 					
 				});
 				deferred.resolve(result);

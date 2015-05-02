@@ -43,7 +43,7 @@ a {
 	width: 100%;
 	position: absolute;
 	top: 0;
-	margin-left: -40px;
+	margin-left: -10px;
 	margin-bottom: 10px;
 }
 #loadbar{
@@ -65,4 +65,25 @@ a {
 	background-color: #dddddd;
 	text-align: center;
 }
+
+.detail-title{
+	display: block;
+	border-top:2px solid #FFDAB9;
+	border-bottom: 2px solid #FFDAB9;
+	padding: 5px 0;
+	width: 100%;
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
