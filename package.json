@@ -1,0 +1,30 @@
+{
+  "name": "neusoft-news",
+  "version": "1.0.0",
+  "description": "convenient fetch news from university website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qianjiahao/Neusoft-News.git"
+  },
+  "author": "qianjiahao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qianjiahao/Neusoft-News/issues"
+  },
+  "homepage": "https://github.com/qianjiahao/Neusoft-News",
+  "dependencies": {
+    "bootstrap": "^3.3.4",
+    "cheerio": "^0.19.0",
+    "express": "^4.12.3",
+    "fs-extra": "^0.18.2",
+    "gulp": "^3.8.11",
+    "gulp-livereload": "^3.8.0",
+    "jquery": "^2.1.4",
+    "q": "^1.3.0",
+    "superagent": "^1.2.0"
+  }
+}
