@@ -5,14 +5,17 @@
 		<div class="col-md-12" >
 			<h3><span class="detail-title"><%= title %></span></h3>
 
-				<%= publishDate%>
-				<%= author%>
-				<%= editor%>
-				<%= source%>
-				<%= data%>
+				<ul style="margin-left: -15px;">
+					<li>>&emsp;<%= publishDate%></li>
+					<li>>&emsp;<%= author%></li>
+					<li>>&emsp;<%= editor%></li>
+					<li>>&emsp;<%= source%></li>
+				</ul>	
+				<% data.forEach(function(ele){ %>
 
-				
-				
+					<p>&emsp;&emsp;<%- ele%></p>
+
+				<%	})%>
 		</div>
 	</div>
 </div>

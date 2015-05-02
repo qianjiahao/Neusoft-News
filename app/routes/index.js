@@ -54,7 +54,17 @@ module.exports = function(app){
 				var source = $ele.find('.source a').text() || '暂无';
 				var data = $ele.find('.data').text() || '暂无';
 
-				console.log(data);
+
+				var re = /\t|\r/g;
+				var array = data.replace(re,'').split('\n');
+				var result = [];
+				array.map(function(ele){
+					if(ele != ''){
+						result.push(ele);
+					}
+				});
+
+				console.log(array);
 
 				res.render('detail',{
 					title:title,
@@ -62,7 +72,7 @@ module.exports = function(app){
 					author:author,
 					editor:editor,
 					source:source,
-					data:data
+					data:result
 				});
 
 			});

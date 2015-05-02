@@ -5,6 +5,9 @@ body {
 a {
   	text-decoration: none;
 }
+ul{
+	list-style-type: none;
+}
 .ellipsis{
 	overflow: hidden;
 	text-overflow:ellipsis;
@@ -68,7 +71,7 @@ a {
 
 .detail-title{
 	display: block;
-	border-top:2px solid #FFDAB9;
+	border-top:2px solid #EBECE4;
 	border-bottom: 2px solid #FFDAB9;
 	padding: 5px 0;
 	width: 100%;
