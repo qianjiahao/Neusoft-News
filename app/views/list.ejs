@@ -1,22 +1,23 @@
 <%- include header %>
 
-<div class="container">
+<div class="container-fluid" style="margin-top: 60px;">
 	<div class="row">
-		<div class="col-md-12">
-			<h2><%= title %><span class="badge">12</span></h2>
+		<div class="col-md-12" >
+			<h2><span style="text-transform: uppercase;"><%= title %></span></h2>
 
 				<% data.forEach(function(ele){ %>
 
 					<section>
 						<div class="item">
-							<a class="item-a" href="/content?url=<%= ele.href%>">
-							<%= ele.title %>
+							<a class="item-a" href="/detail?url=<%= ele.href%>">
+								<div class="item-content ellipsis">
+									<%= ele.title %>
+								</div>
 							</a>
 						</div>
 					</section> 
 
 				<%	})%>
-			</ul>
 		</div>
 	</div>
 </div>

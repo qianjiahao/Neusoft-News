@@ -1,23 +1,17 @@
 window.onload = function(){
 	
 	loadbar();
-	// scrollTop();
+	scrollTop();
 
 }
 
 function scrollTop(){
-	var topBtn = document.getElementById('backtotop');
+	var topBtn = document.getElementById('backtop');
 	var clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
 	var timer = null;
 	var isTop = true;
-
 	window.onscroll = function(){
-		var osTop = document.documentElement.scrollTop || document.body.scrollTop;
-		if(osTop >= clientHeight){
-			topBtn.style.display = 'block';
-		}else{
-			topBtn.style.display = 'none';
-		}
+
 		if(!isTop){
 			clearTimeout(timer);
 		}

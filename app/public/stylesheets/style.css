@@ -1,20 +1,40 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  	/*color: #8B8878;*/
-  	/*text-decoration: none;*/
+  	text-decoration: none;
+}
+.ellipsis{
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
 }
 
 .item{
 	height: 50px;
+	line-height: 50px;
 	border: 1px #EBECE4 solid;
+	background-color: #EBECE4;
+	margin-bottom: 10px;
+}
+
+.item:hover{
+	background-color: #FF7F50;
 }
 .item-a:link{
 	color: #8B8878;
-  	/*text-decoration: none;*/
+	text-decoration: none;
+}
+.item-a:visited{
+	color: #444444;
+}
+
+.item-content{
+	background-color: #ffffff;
+	height: 48px;
+	margin-left: 10px;
+	text-indent: 10px;
 }
 
 #loadbox{
@@ -34,3 +54,15 @@ a {
 	top: 0;
 	margin-left: -10px;
 }
+
+
+#backtop{
+	text-decoration: none;
+}
+
+#copyright{
+
+	background-color: #dddddd;
+	text-align: center;
+}
+

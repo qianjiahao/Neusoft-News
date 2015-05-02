@@ -36,9 +36,23 @@ module.exports = function(app){
 		});
 	});
 
-	app.get('/content',function(req,res){
+	app.get('/detail',function(req,res){
 
+		var url = req.query.url;
 
+		fetchDetail(url)
+			.then(function(data){
+				console.log(data);
+
+				res.render('detail',{
+					title:data.title,
+					publishDate:data.publishDate,
+					author:data.author,
+					editor:data.editor,
+					source:data.source,
+					data:data.data
+				})
+			});
 
 	})
 
@@ -48,7 +62,7 @@ module.exports = function(app){
 		var url = 'http://news.neusoft.edu.cn/news/news/campus-news/';
 		var file = path.join(dir, option + '.json');
 
-		fetch(url)
+		fetchList(url)
 			.then(function(data){
 				return JSON.stringify(data);
 			})
@@ -72,7 +86,7 @@ module.exports = function(app){
 		var file = path.join(dir,option + '.json');
 
 
-		fetch(url)
+		fetchList(url)
 			.then(function(data){
 				return JSON.stringify(data);
 			})
@@ -96,7 +110,7 @@ module.exports = function(app){
 		var file = path.join(dir,option + '.json');
 
 
-		fetch(url)
+		fetchList(url)
 			.then(function(data){
 				return JSON.stringify(data);
 			})
@@ -120,7 +134,7 @@ module.exports = function(app){
 		var file = path.join(dir,option + '.json');
 
 
-		fetch(url)
+		fetchList(url)
 			.then(function(data){
 				return JSON.stringify(data);
 			})
@@ -138,7 +152,7 @@ module.exports = function(app){
 	});
 }
 
-function fetch(url){
+function fetchList(url){
 
 	var deferred = Q.defer();
 
@@ -168,3 +182,45 @@ function fetch(url){
 
 		return deferred.promise;
 }
+
+
+function fetchDetail(url){
+
+	var deferred = Q.defer();
+
+		superagent.get(url)
+			.end(function(err,data){
+				if(err) {
+					deferred.reject(err);
+					return ;
+				}
+
+				var $  = cheerio.load(data.text);
+
+				var result = [];
+
+				$('.article-content').each(function(index,ele){
+					var $ele = $(ele);
+					var title = $ele.find('h2').text();
+					var publishDate = $ele.find('.entry-date').text() || '暂无';
+					var author = $ele.find('.author').text() || '暂无';
+					var editor = $ele.find('.editor').text() || '暂无';
+					var source = $ele.find('.source a').text() || '暂无';
+					var data = $ele.find('.data').text() || '暂无';
+					result.push({
+						title:$ele.find('h2').text(),
+						publishDate:publishDate,
+						author:author,
+						editor:editor,
+						source:source,
+						data:data
+					});
+					console.log(result);
+					
+				});
+				deferred.resolve(result);
+			});
+
+		return deferred.promise;
+}
+
