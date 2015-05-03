@@ -3,6 +3,7 @@ var cheerio = require('cheerio');
 var path = require('path');
 var fs = require('fs-extra');
 var Q = require('q');
+var crypto = require('crypto');
 var dir = '../data';
 
 module.exports = function(app){
@@ -31,15 +32,19 @@ module.exports = function(app){
 
 		var id = req.body.id;
 		var birth = req.body.birth;
+		var md5 = crypto.createHash('md5');
+		md5_id = md5.update(id).digest('hex');
+		md5 = crypto.createHash('md5');
+		md5_birth = md5.update(birth).digest('hex');
 
-		fs.readJson('../data/target.json',function(err,data){
+		fs.readJson('../data/source.json',function(err,data){
 			if(err) console.log(err);
 			var result = JSON.parse(data);
 			var flag = false;
 			result.map(function(ele){
-				if(ele.id == id && ele.birth == birth){
+				if(ele.id == md5_id && ele.birth == md5_birth){
 					flag = true;
-					req.session.sessionId = id;
+					req.session.sessionId = md5_id;
 					res.redirect('/');
 				}
 			});
