@@ -30,12 +30,12 @@ module.exports = function(app){
 
 	app.post('/login',function(req,res){
 
-		var id = req.body.id;
-		var birth = req.body.birth;
-		var md5 = crypto.createHash('md5');
-		md5_id = md5.update(id).digest('hex');
+		var md5 ;
+		
 		md5 = crypto.createHash('md5');
-		md5_birth = md5.update(birth).digest('hex');
+		md5_id = md5.update(req.body.id).digest('hex');
+		md5 = crypto.createHash('md5');
+		md5_birth = md5.update(req.body.birth).digest('hex');
 
 		fs.readJson('../data/source.json',function(err,data){
 			if(err) console.log(err);
@@ -61,21 +61,42 @@ module.exports = function(app){
 		res.redirect('/');
 	});
 
+
 	app.get('/list',checkLogin);
 	app.get('/list',function(req,res){
 
 		var option = req.query.option;
+
+		switch (option){
+			case 'news':
+				var url = 'http://news.neusoft.edu.cn/news/news/campus-news/';
+				break;
+			case 'notice':
+				var url = 'http://news.neusoft.edu.cn/news/news/notices/notice/';
+				break;
+			case 'activity':
+				var url = 'http://news.neusoft.edu.cn/news/news/notices/activity/';
+				break;
+			case 'lecture':
+				var url = 'http://news.neusoft.edu.cn/news/news/notices/lecture/';
+				break;
+			default :
+				console.log('bad case');
+		}
+
+		console.log(url);
+
 		var file = path.join(dir,option + '.json');
 
-		fs.readJson(file,function(err,data){
-			if(err) return err;
+		fetchList(url)
+			.then(function(data){
 
-			res.render('list',{
-				title:option,
-				data:JSON.parse(data),
-				sessionId:req.session.sessionId
+				res.render('list',{
+						title:option,
+						data:data,
+						sessionId:req.session.sessionId
+					});
 			});
-		});
 	});
 	app.get('/detail',checkLogin);
 	app.get('/detail',function(req,res){
@@ -115,102 +136,8 @@ module.exports = function(app){
 			});
 	});
 
-	app.get('/news',checkLogin);
-	app.get('/news',function(req,res){
+	
 
-		var option = 'news';
-		var url = 'http://news.neusoft.edu.cn/news/news/campus-news/';
-		var file = path.join(dir, option + '.json');
-
-		fetchList(url)
-			.then(function(data){
-				return JSON.stringify(data);
-			})
-			.then(function(json){
-				fs.outputJson(file,json);
-			})
-			.then(function(){
-				fs.readJson(file,function(err,data){
-					res.redirect('/list?option=' + option);
-				});
-			},function(err){
-				return err;
-			});
-
-
-	});
-	app.get('/notice',checkLogin);
-	app.get('/notice',function(req,res){
-
-		var option = 'notice';
-		var url = 'http://news.neusoft.edu.cn/news/news/notices/notice/';
-		var file = path.join(dir,option + '.json');
-
-
-		fetchList(url)
-			.then(function(data){
-				return JSON.stringify(data);
-			})
-			.then(function(json){
-				fs.outputJson(file,json);
-			})
-			.then(function(){
-				fs.readJson(file,function(err,data){
-					res.redirect('/list?option=' + option);
-				});
-			},function(err){
-				return err;
-			});
-
-	});
-	app.get('/activity',checkLogin);
-	app.get('/activity',function(req,res){
-
-		var option = 'activity';
-		var url = 'http://news.neusoft.edu.cn/news/news/notices/activity/';
-		var file = path.join(dir,option + '.json');
-
-
-		fetchList(url)
-			.then(function(data){
-				return JSON.stringify(data);
-			})
-			.then(function(json){
-				fs.outputJson(file,json);
-			})
-			.then(function(){
-				fs.readJson(file,function(err,data){
-					res.redirect('/list?option=' + option);
-				});
-			},function(err){
-				return err;
-			});
-
-	});
-	app.get('/lecture',checkLogin);
-	app.get('/lecture',function(req,res){
-
-		var option = 'lecture';
-		var url = 'http://news.neusoft.edu.cn/news/news/notices/lecture/';
-		var file = path.join(dir,option + '.json');
-
-
-		fetchList(url)
-			.then(function(data){
-				return JSON.stringify(data);
-			})
-			.then(function(json){
-				fs.outputJson(file,json);
-			})
-			.then(function(){
-				fs.readJson(file,function(err,data){
-					res.redirect('/list?option=' + option);
-				});
-			},function(err){
-				return err;
-			});
-
-	});
 	app.get('/tel',checkLogin);
 	app.get('/tel',function(req,res){
 
