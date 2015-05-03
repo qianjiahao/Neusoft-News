@@ -6,6 +6,7 @@ a {
   	text-decoration: none;
 }
 
+
 #logo{
 	display: block;
 	margin: 20px auto;
@@ -66,6 +67,10 @@ a {
 		color: #fff;
 		font-size: 18px;
 	}
+}
+
+ul{
+	list-style-type: none;
 }
 
 .ellipsis{
@@ -147,7 +152,7 @@ a {
 	width: 100%;
 	position: absolute;
 	top: 0;
-	/*margin-left: -10px;*/
+	margin-left: -10px;
 	margin-bottom: 10px;
 }
 #loadbar{
@@ -171,4 +176,25 @@ a {
 	/*bottom: 0;*/
 	width: 100%;
 }
+
+.detail-title{
+	display: block;
+	border-top:2px solid #EBECE4;
+	border-bottom: 2px solid #FFDAB9;
+	padding: 5px 0;
+	width: 100%;
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 

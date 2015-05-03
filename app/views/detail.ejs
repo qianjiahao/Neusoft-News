@@ -1,9 +1,10 @@
 <%- include header %>
 
-<div class="container-fluid">
+
+<div class="container-fluid" style="margin-top: 60px;">
 	<div class="row">
 		<div class="col-md-12" >
-			<h3><span><%= title %></span></h3>
+			<h3><span class="detail-title"><%= title %></span></h3>
 
 				<ul>
 					<li><%= publishDate%></li>
@@ -17,6 +18,7 @@
 					<p>&emsp;&emsp;<%- ele || '暂无文字介绍，敬请期待'%></p>
 				<%	})%>
 				
+
 		</div>
 	</div>
 </div>

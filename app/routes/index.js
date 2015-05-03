@@ -48,6 +48,7 @@ module.exports = function(app){
 
 				var result = [];
 
+
 				var $ele = $('.article-content');
 
 				var title = $ele.find('h2').text();
@@ -69,7 +70,6 @@ module.exports = function(app){
 					data:data
 				});
 			});
-
 	});
 
 	app.get('/news',function(req,res){
