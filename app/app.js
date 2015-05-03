@@ -20,9 +20,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
 	secret:"1234567890QWERTY",
-	cookie: {maxAge: 1000*60*30}, 
+	cookie: {maxAge: 1000*60*5}, 
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
 
 }))
 routes(app);

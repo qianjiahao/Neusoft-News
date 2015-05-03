@@ -12,21 +12,19 @@ module.exports = function(app){
 
 		fs.ensureDir('./data',function(err,data){
 			if(err) return err;
-
 		});
-
 		res.render('index',{
-			title:'hello'
+			title:'hello',
+			sessionId:req.session.sessionId
 		});
 
 	});
 
 	app.get('/login',function(req,res){
-
 		res.render('login',{
-			title:'login'
+			title:'login',
+			sessionId:req.session.sessionId
 		});
-
 	});
 
 	app.post('/login',function(req,res){
@@ -41,15 +39,21 @@ module.exports = function(app){
 			result.map(function(ele){
 				if(ele.id == id && ele.birth == birth){
 					flag = true;
-					req.session.lastPage = id;
+					req.session.sessionId = id;
 					res.redirect('/');
-					return flag;
 				}
 			});
-			if(!flag)
-			return res.redirect('/login');
+			if(!flag){
+				res.redirect('/login');
+			}
 		});
 
+	});
+
+	app.get('/logout',function(req,res){
+
+		req.session.sessionId = null;
+		res.redirect('/');
 	});
 
 	app.get('/list',checkLogin);
@@ -63,7 +67,8 @@ module.exports = function(app){
 
 			res.render('list',{
 				title:option,
-				data:JSON.parse(data)
+				data:JSON.parse(data),
+				sessionId:req.session.sessionId
 			});
 		});
 	});
@@ -99,7 +104,8 @@ module.exports = function(app){
 					author:author,
 					editor:editor,
 					source:source,
-					data:data
+					data:data,
+					sessionId:req.session.sessionId
 				});
 			});
 	});
@@ -125,6 +131,7 @@ module.exports = function(app){
 			},function(err){
 				return err;
 			});
+
 
 	});
 	app.get('/notice',checkLogin);
@@ -226,11 +233,10 @@ module.exports = function(app){
 					});
 
 				});
-				console.log(result)
-
 				res.render('tel',{
 					title:'tel',
-					data:result
+					data:result,
+					sessionId:req.session.sessionId
 				})
 			});
 
@@ -239,12 +245,14 @@ module.exports = function(app){
 
 	function checkLogin(req,res,next){
 
-		if(!req.session.lastPage){
+		if(!req.session.sessionId){
 			res.redirect('/login');
 		}else{
+			console.log(req.session.sessionId);
 			next();
 		}
 	}
+
 };
 
 function fetchList(url){
