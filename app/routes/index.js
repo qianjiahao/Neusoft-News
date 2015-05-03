@@ -21,6 +21,38 @@ module.exports = function(app){
 
 	});
 
+	app.get('/login',function(req,res){
+
+		res.render('login',{
+			title:'login'
+		});
+
+	});
+
+	app.post('/login',function(req,res){
+
+		var id = req.body.id;
+		var birth = req.body.birth;
+
+		fs.readJson('../data/target.json',function(err,data){
+			if(err) console.log(err);
+			var result = JSON.parse(data);
+			var flag = false;
+			result.map(function(ele){
+				if(ele.id == id && ele.birth == birth){
+					flag = true;
+					req.session.lastPage = id;
+					res.redirect('/');
+					return flag;
+				}
+			});
+			if(!flag)
+			return res.redirect('/login');
+		});
+
+	});
+
+	app.get('/list',checkLogin);
 	app.get('/list',function(req,res){
 
 		var option = req.query.option;
@@ -35,7 +67,7 @@ module.exports = function(app){
 			});
 		});
 	});
-
+	app.get('/detail',checkLogin);
 	app.get('/detail',function(req,res){
 
 		var url = req.query.url;
@@ -72,6 +104,7 @@ module.exports = function(app){
 			});
 	});
 
+	app.get('/news',checkLogin);
 	app.get('/news',function(req,res){
 
 		var option = 'news';
@@ -94,7 +127,7 @@ module.exports = function(app){
 			});
 
 	});
-
+	app.get('/notice',checkLogin);
 	app.get('/notice',function(req,res){
 
 		var option = 'notice';
@@ -118,7 +151,7 @@ module.exports = function(app){
 			});
 
 	});
-
+	app.get('/activity',checkLogin);
 	app.get('/activity',function(req,res){
 
 		var option = 'activity';
@@ -142,7 +175,7 @@ module.exports = function(app){
 			});
 
 	});
-
+	app.get('/lecture',checkLogin);
 	app.get('/lecture',function(req,res){
 
 		var option = 'lecture';
@@ -166,7 +199,7 @@ module.exports = function(app){
 			});
 
 	});
-
+	app.get('/tel',checkLogin);
 	app.get('/tel',function(req,res){
 
 		var url = 'http://www.neusoft.edu.cn/life/';
@@ -203,6 +236,15 @@ module.exports = function(app){
 
 		
 	});
+
+	function checkLogin(req,res,next){
+
+		if(!req.session.lastPage){
+			res.redirect('/login');
+		}else{
+			next();
+		}
+	}
 };
 
 function fetchList(url){
