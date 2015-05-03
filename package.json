@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/qianjiahao/Neusoft-News",
   "dependencies": {
+    "body-parser": "^1.12.3",
     "cheerio": "^0.19.0",
     "cookie-parser": "^1.3.4",
     "express": "^4.12.3",
