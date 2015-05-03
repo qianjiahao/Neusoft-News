@@ -37,7 +37,7 @@ module.exports = function(app){
 		md5 = crypto.createHash('md5');
 		md5_birth = md5.update(req.body.birth).digest('hex');
 
-		fs.readJson('../data/source.json',function(err,data){
+		fs.readJson('data/source.json',function(err,data){
 			if(err) console.log(err);
 			var result = JSON.parse(data);
 			var flag = false;
@@ -84,9 +84,7 @@ module.exports = function(app){
 				console.log('bad case');
 		}
 
-		console.log(url);
 
-		var file = path.join(dir,option + '.json');
 
 		fetchList(url)
 			.then(function(data){
@@ -175,12 +173,15 @@ module.exports = function(app){
 		
 	});
 
+	app.use(function (req, res) {
+		res.render('404');
+	});
+
 	function checkLogin(req,res,next){
 
 		if(!req.session.sessionId){
 			res.redirect('/login');
 		}else{
-			console.log(req.session.sessionId);
 			next();
 		}
 	}

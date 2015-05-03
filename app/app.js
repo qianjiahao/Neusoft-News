@@ -3,7 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 5000;
 
 var routes = require('./routes/index');
 

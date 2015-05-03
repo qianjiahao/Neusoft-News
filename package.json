@@ -2,9 +2,9 @@
   "name": "neusoft-news",
   "version": "1.0.0",
   "description": "convenient fetch news from university website",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./app/app.js"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,8 @@
     "jquery": "^2.1.4",
     "q": "^1.3.0",
     "superagent": "^1.2.0"
+  },
+   "engines": {
+    "node": "0.12.x"
   }
 }
