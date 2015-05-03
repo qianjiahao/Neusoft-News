@@ -1,12 +1,21 @@
 <%- include header %>
 
-<div class="container-fluid" style="margin-top: 60px;">
-	<div class="row" style="margin-left: -50px;margin-right: -40px;">
+<div class="container-fluid">
+	<div class="row">
 		<div class="col-md-12" >
 			<h3><span><%= title %></span></h3>
 
-				<%= publishDate%>
-				sdfsdfsdf
+				<ul>
+					<li><%= publishDate%></li>
+					<li><%= author%></li>
+					<li><%= editor%></li>
+					<li><%= source%></li>
+				</ul>
+						
+				<% data.forEach(function(ele){ %>
+
+					<p>&emsp;&emsp;<%- ele || '暂无文字介绍，敬请期待'%></p>
+				<%	})%>
 				
 		</div>
 	</div>

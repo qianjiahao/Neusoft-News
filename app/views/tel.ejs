@@ -8,12 +8,12 @@
 				<% data.forEach(function(ele){ %>
 
 					<section>
-						<div class="item">
-							<a class="item-a" href="/detail?url=<%= ele.href%>">
-								<div class="item-content ellipsis">
-									<%= ele.title %>
-								</div>
-							</a>
+						<div class="item-tel">
+							<div class="item-tel-content">
+								<span class="tel-name"><%- ele.name%></span>
+								<span class="tel-position">地点：<%- ele.position%></span>
+								<span class="tel-tel">电话：<%- ele.tel%></span>
+							</div>
 						</div>
 					</section> 
 				<%	})%>

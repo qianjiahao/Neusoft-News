@@ -5,19 +5,122 @@ body {
 a {
   	text-decoration: none;
 }
+
+#logo{
+	display: block;
+	margin: 20px auto;
+	border-radius: 110px;
+}
+
+#logo-name{
+	font-weight: 800;
+	font-size: 50px;
+	text-align: center;
+	display: block;
+	margin: 0 auto;
+	color: #fff;
+}
+#logo-description{
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	color: #fff;
+	font-size: 30px;
+}
+
+@media (max-width:768px){
+
+	#logo-name{
+		font-weight: 800;
+		font-size: 30px;
+		text-align: center;
+		display: block;
+		margin: 0 auto;
+		color: #fff;
+	}
+
+	#logo-description{
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+		color: #fff;
+		font-size: 25px;
+	}
+}
+
+@media (max-width:400px){
+
+	#logo-name{
+		font-weight: 800;
+		font-size: 20px;
+		text-align: center;
+		display: block;
+		margin: 0 auto;
+		color: #fff;
+	}
+
+	#logo-description{
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+		color: #fff;
+		font-size: 18px;
+	}
+}
+
 .ellipsis{
 	overflow: hidden;
 	text-overflow:ellipsis;
 	white-space: nowrap;
 }
+.item-tel{
+	height: 76px;
+	/*line-height: 60px;*/
+	border: 1px #EBECE4 solid;
+	background-color: #EBECE4;
+	margin-bottom: 10px;
+/*	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+*/}
 
+.item-tel:hover{
+	background-color:  #18bc9c;
+}
+.item-tel-content{
+	background-color: #ffffff;
+	height: 74px;
+	margin-left: 20px;
+	margin-right: 5px;
+}
+
+.tel-name{
+	font-size: 22px;
+	display: block;
+	text-indent: 20px;
+}
+
+.tel-position{
+	font-size: 14px;
+	display: block;
+	text-indent: 30px;
+
+}
+
+.tel-tel{
+	font-size: 14px;
+	text-indent: 30px;
+	display: block;
+
+}
 .item{
 	height: 50px;
 	line-height: 50px;
 	border: 1px #EBECE4 solid;
 	background-color: #EBECE4;
 	margin-bottom: 10px;
-}
+/*	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+*/}
 
 .item:hover{
 	background-color: #FF7F50;
@@ -33,8 +136,9 @@ a {
 .item-content{
 	background-color: #ffffff;
 	height: 48px;
-	margin-left: 10px;
+	margin-left: 20px;
 	text-indent: 10px;
+	margin-right: 5px;
 }
 
 #loadbox{
@@ -43,7 +147,7 @@ a {
 	width: 100%;
 	position: absolute;
 	top: 0;
-	margin-left: -40px;
+	/*margin-left: -10px;*/
 	margin-bottom: 10px;
 }
 #loadbar{
@@ -61,8 +165,10 @@ a {
 }
 
 #copyright{
-
-	background-color: #dddddd;
+	background-color: #ECF1EF;
 	text-align: center;
+	position: absolute;
+	/*bottom: 0;*/
+	width: 100%;
 }
 

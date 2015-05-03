@@ -40,21 +40,37 @@ module.exports = function(app){
 
 		var url = req.query.url;
 
-		fetchDetail(url)
-			.then(function(data){
-				console.log(data);
+		superagent.get(url)
+			.end(function(err,data){
+				if(err) return err;
 
+				var $  = cheerio.load(data.text);
+
+				var result = [];
+
+				var $ele = $('.article-content');
+
+				var title = $ele.find('h2').text();
+				var publishDate = $ele.find('.entry-date').text() || '暂无';
+				var author = $ele.find('.author').text() || '暂无';
+				var editor = $ele.find('.editor').text() || '暂无';
+				var source = $ele.find('.source a').text() || '暂无';
+				var data = $ele.find('.data').text();
+
+				var re = /\t|\n|\r/g;
+				var data = data.replace(re,'').split(' ');
+				
 				res.render('detail',{
-					title:data.title,
-					publishDate:data.publishDate,
-					author:data.author,
-					editor:data.editor,
-					source:data.source,
-					data:data.data
-				})
+					title:title,
+					publishDate:publishDate,
+					author:author,
+					editor:editor,
+					source:source,
+					data:data
+				});
 			});
 
-	})
+	});
 
 	app.get('/news',function(req,res){
 
@@ -72,7 +88,7 @@ module.exports = function(app){
 			.then(function(){
 				fs.readJson(file,function(err,data){
 					res.redirect('/list?option=' + option);
-				})
+				});
 			},function(err){
 				return err;
 			});
@@ -96,7 +112,7 @@ module.exports = function(app){
 			.then(function(){
 				fs.readJson(file,function(err,data){
 					res.redirect('/list?option=' + option);
-				})
+				});
 			},function(err){
 				return err;
 			});
@@ -120,14 +136,14 @@ module.exports = function(app){
 			.then(function(){
 				fs.readJson(file,function(err,data){
 					res.redirect('/list?option=' + option);
-				})
+				});
 			},function(err){
 				return err;
 			});
 
 	});
 
-		app.get('/lecture',function(req,res){
+	app.get('/lecture',function(req,res){
 
 		var option = 'lecture';
 		var url = 'http://news.neusoft.edu.cn/news/news/notices/lecture/';
@@ -144,13 +160,50 @@ module.exports = function(app){
 			.then(function(){
 				fs.readJson(file,function(err,data){
 					res.redirect('/list?option=' + option);
-				})
+				});
 			},function(err){
 				return err;
 			});
 
 	});
-}
+
+	app.get('/tel',function(req,res){
+
+		var url = 'http://www.neusoft.edu.cn/life/';
+		var option = req.query.option;
+
+			superagent.get(url)
+			.end(function(err,data){
+				if(err) return err;
+
+				var $ = cheerio.load(data.text);
+				var result = [];
+
+				$('.cydh-box li').each(function(index,ele){
+
+					var $ele = $(ele).text().split('：');
+					var name = $ele[0];
+					var position = $ele[1];
+					var tel = $ele[2];
+
+					result.push({
+						name:name,
+						position:position,
+						tel:tel
+					});
+
+				});
+				console.log(result)
+
+				res.render('tel',{
+					title:'tel',
+					data:result
+				})
+			});
+
+		
+	});
+};
 
 function fetchList(url){
 
@@ -174,8 +227,6 @@ function fetchList(url){
 						title:$ele.find('a').text(),
 						date:$ele.find('i').text()
 					});
-					// console.log(result);
-					
 				});
 				deferred.resolve(result);
 			});
@@ -183,44 +234,4 @@ function fetchList(url){
 		return deferred.promise;
 }
 
-
-function fetchDetail(url){
-
-	var deferred = Q.defer();
-
-		superagent.get(url)
-			.end(function(err,data){
-				if(err) {
-					deferred.reject(err);
-					return ;
-				}
-
-				var $  = cheerio.load(data.text);
-
-				var result = [];
-
-				$('.article-content').each(function(index,ele){
-					var $ele = $(ele);
-					var title = $ele.find('h2').text();
-					var publishDate = $ele.find('.entry-date').text() || '暂无';
-					var author = $ele.find('.author').text() || '暂无';
-					var editor = $ele.find('.editor').text() || '暂无';
-					var source = $ele.find('.source a').text() || '暂无';
-					var data = $ele.find('.data').text() || '暂无';
-					result.push({
-						title:$ele.find('h2').text(),
-						publishDate:publishDate,
-						author:author,
-						editor:editor,
-						source:source,
-						data:data
-					});
-					console.log(result);
-					
-				});
-				deferred.resolve(result);
-			});
-
-		return deferred.promise;
-}
 
