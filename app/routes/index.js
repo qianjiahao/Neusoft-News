@@ -4,7 +4,7 @@ var path = require('path');
 var fs = require('fs-extra');
 var Q = require('q');
 var crypto = require('crypto');
-var dir = '../data';
+var cool = require('cool-ascii-faces');
 
 module.exports = function(app){
 
@@ -14,6 +14,7 @@ module.exports = function(app){
 		fs.ensureDir('./data',function(err,data){
 			if(err) return err;
 		});
+
 		res.render('index',{
 			title:'hello',
 			sessionId:req.session.sessionId
@@ -24,6 +25,7 @@ module.exports = function(app){
 	app.get('/login',function(req,res){
 		res.render('login',{
 			title:'login',
+			cool:cool(),
 			sessionId:req.session.sessionId
 		});
 	});
