@@ -8,11 +8,6 @@ var cool = require('cool-ascii-faces');
 
 module.exports = function(app) {
 
-	app.use(function(req,res,next){
-
-		recordVisitor(getClientIp(req));
-		next();
-	})
 
 	app.get('/', function(req, res) {
 		fs.ensureDir('./data', function(err, data) {
@@ -228,21 +223,3 @@ function fetchList(url) {
 	return deferred.promise;
 }
 
-function getClientIp(req) {
-	return req.headers['x-forwarded-for'] ||
-		req.connection.remoteAddress ||
-		req.socket.remoteAddress ||
-		req.connection.socket.remoteAddress;
-};
-
-function recordVisitor(address) {
-
-	var file = 'data/visitor.txt';
-	var ip = 'ip=' + address + ';';
-
-	fs.appendFile(file, ip, function(err, data) {
-		if (err) console.log(err);
-
-	});
-
-}
