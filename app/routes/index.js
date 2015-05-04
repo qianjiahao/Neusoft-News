@@ -8,6 +8,9 @@ var cool = require('cool-ascii-faces');
 
 module.exports = function(app){
 
+	app.get(function(req,res,next){
+		console.log(getClientIp(req));
+	})
 
 	app.get('/',function(req,res){
 
@@ -219,4 +222,9 @@ function fetchList(url){
 		return deferred.promise;
 }
 
-
+function getClientIp(req) {
+        return req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress;
+    };
