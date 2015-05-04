@@ -1,26 +1,27 @@
 <%- include header %>
 
+<header>
+	<section>
+		<div class="container" style="margin-top: 60px;min-height: 600px;">
+			<div class="row">
+				<div class="col-md-12" >
+					<h3><span class="detail-title"><%= title %></span></h3>
 
-<div class="container" style="margin-top: 60px;min-height: 600px;">
-	<div class="row">
-		<div class="col-md-12" >
-			<h3><span class="detail-title"><%= title %></span></h3>
+						<ul>
+							<li><%= publishDate%></li>
+							<li><%= author%></li>
+							<li><%= editor%></li>
+							<li><%= source%></li>
+						</ul>
+								
+						<% data.forEach(function(ele){ %>
 
-				<ul>
-					<li><%= publishDate%></li>
-					<li><%= author%></li>
-					<li><%= editor%></li>
-					<li><%= source%></li>
-				</ul>
-						
-				<% data.forEach(function(ele){ %>
-
-					<p>&emsp;&emsp;<%- ele || '暂无文字介绍，敬请期待'%></p>
-				<%	})%>
-				
-
+							<p>&emsp;&emsp;<%- ele || '暂无文字介绍，敬请期待'%></p>
+						<%	})%>
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
+	</section>
+</header>
 
 <%- include footer %>
