@@ -128,7 +128,7 @@ ul{
 */}
 
 .item:hover{
-	background-color: #FF7F50;
+	/*background-color: #FF7F50;*/
 }
 .item-a:link{
 	color: #8B8878;

@@ -57,3 +57,28 @@ function loadbar(){
 
 }
 
+
+
+
+
+$(document).ready(function(){
+	var array = ['#458B74','#7AC5CD','#F08080','#FF7F24','#6495ED','#DC143C'
+	,'#00BFFF','#1874CD','#FFD700','#218868','#EEE685','#8470FF'];
+
+
+	$('.item').hover(function(){
+		var len = array.length - 1;
+		var color = Math.ceil(Math.random()*len);
+		console.log(color);
+		$(this).css("background-color",array[color]);
+	},function(){
+		$(this).css("background-color","#EBECE4");
+	})
+
+})
+
+
+
+
+
+
