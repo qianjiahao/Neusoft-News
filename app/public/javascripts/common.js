@@ -69,7 +69,6 @@ $(document).ready(function(){
 	$('.item').hover(function(){
 		var len = array.length - 1;
 		var color = Math.ceil(Math.random()*len);
-		console.log(color);
 		$(this).css("background-color",array[color]);
 	},function(){
 		$(this).css("background-color","#EBECE4");
