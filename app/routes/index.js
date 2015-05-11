@@ -33,11 +33,12 @@ module.exports = function(app) {
 	app.post('/login', function(req, res) {
 
 		var md5;
-
+		
 		md5 = crypto.createHash('md5');
 		md5_id = md5.update(req.body.id).digest('hex');
 		md5 = crypto.createHash('md5');
 		md5_birth = md5.update(req.body.birth).digest('hex');
+
 
 		fs.readJson('data/source.json', function(err, data) {
 			if (err) console.log(err);
@@ -63,7 +64,6 @@ module.exports = function(app) {
 		res.redirect('/');
 	});
 
-
 	app.get('/list', checkLogin);
 	app.get('/list', function(req, res) {
 
@@ -85,8 +85,6 @@ module.exports = function(app) {
 			default:
 				console.log('bad case');
 		}
-
-
 
 		fetchList(url)
 			.then(function(data) {
@@ -176,6 +174,7 @@ module.exports = function(app) {
 
 
 	});
+
 
 	app.use(function(req, res) {
 		res.render('404');
